@@ -24,16 +24,8 @@ export class AuthService {
   }
 
   private initializeAuth(): void {
-    // Simulate getting user from storage or API
-    const mockUser: User = {
-      id: '1',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      roles: ['admin', 'user'],
-      permissions: ['dashboard', 'projects', 'finances', 'customers', 'reports']
-    };
-
-    this.setUser(mockUser);
+    // Start unauthenticated - user must login
+    this.setUser(null);
   }
 
   setUser(user: User | null): void {

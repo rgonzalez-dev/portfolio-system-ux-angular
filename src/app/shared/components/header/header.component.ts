@@ -24,11 +24,25 @@ export class HeaderComponent implements OnInit {
   @ViewChild('userMenu') userMenu!: ElementRef;
 
   user: User | null = null;
+  isAuthenticated = false;
   showNotifications = false;
   showUserMenu = false;
   showMobileMenu = false;
   unreadNotificationCount = 0;
   currentRoute = '';
+
+  publicNavItems = [
+    {
+      label: 'Portfolio',
+      icon: '📸',
+      route: '/portfolio'
+    },
+    {
+      label: 'Profile',
+      icon: '👤',
+      route: '/profile'
+    }
+  ];
 
   mainNavItems: MainNavItem[] = [
     {
@@ -71,6 +85,10 @@ export class HeaderComponent implements OnInit {
       this.user = user;
     });
 
+    this.authService.isAuthenticated$.subscribe((isAuth: boolean) => {
+      this.isAuthenticated = isAuth;
+    });
+
     // Track current route
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -106,6 +124,7 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.closeMenus();
+    this.router.navigate(['/']);
   }
 
   isActive(route: string): boolean {
