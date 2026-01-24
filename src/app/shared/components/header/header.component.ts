@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, inject, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { AuthService, User } from '../../../core/services/auth.service';
@@ -22,9 +22,11 @@ export interface MainNavItem {
 export class HeaderComponent implements OnInit {
   @ViewChild('notificationsMenu') notificationsMenu!: ElementRef;
   @ViewChild('userMenu') userMenu!: ElementRef;
+  @Output() toggleChat = new EventEmitter<void>();
 
   user: User | null = null;
   isAuthenticated = false;
+  showChat = false;
   showNotifications = false;
   showUserMenu = false;
   showMobileMenu = false;
@@ -95,6 +97,14 @@ export class HeaderComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentRoute = event.urlAfterRedirects || '';
       });
+  }
+
+  toggleChatPanel(event: Event): void {
+    event.stopPropagation();
+    this.showChat = !this.showChat;
+    this.toggleChat.emit();
+    this.showNotifications = false;
+    this.showUserMenu = false;
   }
 
   toggleNotifications(event: Event): void {
