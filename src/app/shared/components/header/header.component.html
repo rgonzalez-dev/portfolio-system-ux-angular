@@ -1,0 +1,81 @@
+<header class="app-header">
+  <div class="header-logo">P</div>
+  
+  <nav class="header-nav">
+    <ul class="main-nav-menu">
+      <ng-container *ngFor="let item of mainNavItems">
+        <li class="main-nav-item" *appHasAccess="item.permission">
+          <a 
+            [routerLink]="item.route"
+            [class.active]="isActive(item.route)"
+            class="main-nav-link">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <!-- Chat Agent Icon -->
+    <button class="icon-btn" title="Open Chat Agent" (click)="toggleNotifications($event)">
+      💬
+    </button>
+
+    <!-- Notifications Icon -->
+    <div style="position: relative;">
+      <button class="icon-btn" (click)="toggleNotifications($event)" title="Notifications">
+        🔔
+        <span class="badge-counter" *ngIf="unreadNotificationCount > 0">
+          {{ unreadNotificationCount }}
+        </span>
+      </button>
+      
+      <div class="notifications-panel" *ngIf="showNotifications" #notificationsMenu>
+        <div style="padding: 10px; border-bottom: 1px solid #e9ecef; font-weight: 500;">
+          Notifications
+        </div>
+        <div class="notification-item unread">
+          <div class="notification-dot"></div>
+          <div class="notification-content">
+            <div class="notification-title">Welcome</div>
+            <div class="notification-message">Welcome back to your dashboard</div>
+            <div class="notification-time">Just now</div>
+          </div>
+        </div>
+        <div class="notification-item unread">
+          <div class="notification-dot"></div>
+          <div class="notification-content">
+            <div class="notification-title">New Project</div>
+            <div class="notification-message">A new project has been assigned to you</div>
+            <div class="notification-time">1 hour ago</div>
+          </div>
+        </div>
+        <div class="notification-item">
+          <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; margin-top: 8px;"></div>
+          <div class="notification-content">
+            <div class="notification-title">System Update</div>
+            <div class="notification-message">System will undergo maintenance tonight</div>
+            <div class="notification-time">1 day ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Icon with Menu -->
+    <div style="position: relative;">
+      <button class="icon-btn" (click)="toggleUserMenu($event)" title="User Menu">
+        👤
+      </button>
+      
+      <div class="user-menu" *ngIf="showUserMenu" #userMenu>
+        <a href="#profile">👤 Profile</a>
+        <a href="#settings">⚙️ Settings</a>
+        <a href="#help">❓ Help</a>
+        <div class="divider"></div>
+        <button (click)="logout()" style="cursor: pointer;">🚪 Logout</button>
+      </div>
+    </div>
+  </div>
+</header>
