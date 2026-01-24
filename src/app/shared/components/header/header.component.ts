@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
   user: User | null = null;
   showNotifications = false;
   showUserMenu = false;
+  showMobileMenu = false;
   unreadNotificationCount = 0;
   currentRoute = '';
 
@@ -91,6 +92,13 @@ export class HeaderComponent implements OnInit {
   }
 
   closeMenus(): void {
+    this.showNotifications = false;
+    this.showUserMenu = false;
+    this.showMobileMenu = false;
+  }
+
+  toggleMobileMenu(): void {
+    this.showMobileMenu = !this.showMobileMenu;
     this.showNotifications = false;
     this.showUserMenu = false;
   }

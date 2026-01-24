@@ -1,6 +1,7 @@
 <header class="app-header">
   <div class="header-logo">P</div>
   
+  <!-- Desktop Navigation Menu -->
   <nav class="header-nav">
     <ul class="main-nav-menu">
       <ng-container *ngFor="let item of mainNavItems">
@@ -16,6 +17,13 @@
       </ng-container>
     </ul>
   </nav>
+
+  <!-- Mobile Hamburger Button -->
+  <button class="hamburger-btn" (click)="toggleMobileMenu()" title="Toggle Menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
 
   <div class="header-actions">
     <!-- Chat Agent Icon -->
@@ -78,4 +86,22 @@
       </div>
     </div>
   </div>
+
+  <!-- Mobile Navigation Menu -->
+  <nav class="mobile-menu" [class.active]="showMobileMenu">
+    <ul class="mobile-nav-menu">
+      <ng-container *ngFor="let item of mainNavItems">
+        <li class="mobile-nav-item" *appHasAccess="item.permission">
+          <a 
+            [routerLink]="item.route"
+            [class.active]="isActive(item.route)"
+            class="mobile-nav-link"
+            (click)="showMobileMenu = false">
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
 </header>
