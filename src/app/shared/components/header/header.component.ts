@@ -59,31 +59,31 @@ export class HeaderComponent implements OnInit {
     {
       label: 'Dashboard',
       icon: '📊',
-      route: '/dashboard',
+      route: '/app/dashboard',
       permission: 'dashboard'
     },
     {
       label: 'Projects',
       icon: '📁',
-      route: '/projects',
+      route: '/app/projects',
       permission: 'projects'
     },
     {
       label: 'Finances',
       icon: '💰',
-      route: '/finances',
+      route: '/app/finances',
       permission: 'finances'
     },
     {
       label: 'Customers',
       icon: '👥',
-      route: '/customers',
+      route: '/app/customers',
       permission: 'customers'
     },
     {
       label: 'Reports',
       icon: '📑',
-      route: '/reports',
+      route: '/app/reports',
       permission: 'reports'
     }
   ];

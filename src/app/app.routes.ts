@@ -1,61 +1,60 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { ProjectsComponent } from './features/projects/projects.component';
-import { FinancesComponent } from './features/finances/finances.component';
-import { CustomersComponent } from './features/customers/customers.component';
-import { ReportsComponent } from './features/reports/reports.component';
-import { LandingComponent } from './features/landing/landing.component';
-import { LoginComponent } from './features/login/login.component';
-import { ProfileComponent } from './features/profile/profile.component';
-import { PortfolioComponent } from './features/portfolio/portfolio.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+  // Public routes (eager loaded)
   {
     path: '',
-    component: LandingComponent
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/public/landing/landing.component').then(m => m.LandingComponent)
+      },
+      {
+        path: 'login',
+        loadComponent: () => import('./features/public/login/login.component').then(m => m.LoginComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/public/profile/profile.component').then(m => m.ProfileComponent)
+      },
+      {
+        path: 'portfolio',
+        loadComponent: () => import('./features/public/portfolio/portfolio.component').then(m => m.PortfolioComponent)
+      }
+    ]
   },
+  // Protected routes (lazy loaded, requires authentication)
   {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent
-  },
-  {
-    path: 'portfolio',
-    component: PortfolioComponent
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'app',
     canActivate: [AuthGuard],
-    data: { permission: 'dashboard' }
-  },
-  {
-    path: 'projects',
-    component: ProjectsComponent,
-    canActivate: [AuthGuard],
-    data: { permission: 'projects' }
-  },
-  {
-    path: 'finances',
-    component: FinancesComponent,
-    canActivate: [AuthGuard],
-    data: { permission: 'finances' }
-  },
-  {
-    path: 'customers',
-    component: CustomersComponent,
-    canActivate: [AuthGuard],
-    data: { permission: 'customers' }
-  },
-  {
-    path: 'reports',
-    component: ReportsComponent,
-    canActivate: [AuthGuard],
-    data: { permission: 'reports' }
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/protected/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        data: { permission: 'dashboard' }
+      },
+      {
+        path: 'projects',
+        loadComponent: () => import('./features/protected/projects/projects.component').then(m => m.ProjectsComponent),
+        data: { permission: 'projects' }
+      },
+      {
+        path: 'finances',
+        loadComponent: () => import('./features/protected/finances/finances.component').then(m => m.FinancesComponent),
+        data: { permission: 'finances' }
+      },
+      {
+        path: 'customers',
+        loadComponent: () => import('./features/protected/customers/customers.component').then(m => m.CustomersComponent),
+        data: { permission: 'customers' }
+      },
+      {
+        path: 'reports',
+        loadComponent: () => import('./features/protected/reports/reports.component').then(m => m.ReportsComponent),
+        data: { permission: 'reports' }
+      }
+    ]
   }
 ];
 

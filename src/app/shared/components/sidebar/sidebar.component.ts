@@ -39,8 +39,8 @@ export class SidebarComponent implements OnInit {
       permission: 'projects',
       title: 'Projects',
       subItems: [
-        { label: 'Active Projects', icon: '📋', route: '/projects/active', permission: 'projects' },
-        { label: 'Completed', icon: '✅', route: '/projects/completed', permission: 'projects' }
+        { label: 'Active Projects', icon: '📋', route: '/app/projects', permission: 'projects' },
+        { label: 'Completed', icon: '✅', route: '/app/projects', permission: 'projects' }
       ]
     }],
     ['finances', {
@@ -48,8 +48,8 @@ export class SidebarComponent implements OnInit {
       permission: 'finances',
       title: 'Finances',
       subItems: [
-        { label: 'Reports', icon: '📈', route: '/finances/reports', permission: 'finances' },
-        { label: 'Budgets', icon: '💳', route: '/finances/budgets', permission: 'finances' }
+        { label: 'Reports', icon: '📈', route: '/app/finances', permission: 'finances' },
+        { label: 'Budgets', icon: '💳', route: '/app/finances', permission: 'finances' }
       ]
     }],
     ['customers', {
@@ -57,8 +57,8 @@ export class SidebarComponent implements OnInit {
       permission: 'customers',
       title: 'Customers',
       subItems: [
-        { label: 'Active', icon: '⭐', route: '/customers/active', permission: 'customers' },
-        { label: 'Inactive', icon: '⏸️', route: '/customers/inactive', permission: 'customers' }
+        { label: 'Active', icon: '⭐', route: '/app/customers', permission: 'customers' },
+        { label: 'Inactive', icon: '⏸️', route: '/app/customers', permission: 'customers' }
       ]
     }],
     ['reports', {
@@ -66,8 +66,8 @@ export class SidebarComponent implements OnInit {
       permission: 'reports',
       title: 'Reports',
       subItems: [
-        { label: 'Sales', icon: '📊', route: '/reports/sales', permission: 'reports' },
-        { label: 'Analytics', icon: '📉', route: '/reports/analytics', permission: 'reports' }
+        { label: 'Sales', icon: '📊', route: '/app/reports', permission: 'reports' },
+        { label: 'Analytics', icon: '📉', route: '/app/reports', permission: 'reports' }
       ]
     }]
   ]);
@@ -89,8 +89,9 @@ export class SidebarComponent implements OnInit {
   }
 
   private extractFeatureFromRoute(): void {
-    const routeParts = this.currentRoute.split('/');
-    const feature = routeParts[1] || '';
+    const routeParts = this.currentRoute.split('/').filter(part => part !== '');
+    // Route structure: /app/feature or /app/feature/subroute
+    const feature = routeParts.length >= 2 ? routeParts[1] : '';
 
     if (feature && this.featureNavMap.has(feature)) {
       this.currentFeature = feature;
@@ -107,7 +108,14 @@ export class SidebarComponent implements OnInit {
   }
 
   isActive(route: string): boolean {
-    return this.currentRoute === route;
+    // Check if the route matches the current route (exact match)
+    if (this.currentRoute === route) {
+      return true;
+    }
+    
+    // Also check if the current route starts with the navigation route
+    // This handles sub-routes like /app/projects/active should still highlight /app/projects
+    return this.currentRoute.startsWith(route + '/') || this.currentRoute.startsWith(route);
   }
 
   hasSubItems(): boolean {
