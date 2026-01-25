@@ -8,58 +8,90 @@ This project now implements **Option 4: Enhanced Lazy Loading + Module Federatio
 - ✅ Route-based code splitting
 - ✅ Eager loading of default language for i18n
 
-## Project Structure
+## Project Structure (Phase 1 - Implemented)
 
 ```
 portfolio-system-ux-angular/
 ├── src/
 │   ├── app/
-│   │   ├── features/
-│   │   │   ├── public/                  # Public features (eager/normal loading)
-│   │   │   │   ├── landing/
-│   │   │   │   ├── login/
-│   │   │   │   ├── profile/
-│   │   │   │   └── portfolio/
-│   │   │   └── protected/               # Protected features (lazy loaded)
-│   │   │       ├── dashboard/
-│   │   │       ├── projects/
-│   │   │       ├── finances/
-│   │   │       ├── customers/
-│   │   │       └── reports/
+│   │   ├── shell/                       # Shell application (layout + public features)
+│   │   │   ├── layouts/                 # Shell-specific layout components
+│   │   │   │   ├── header/              # Main header with navigation
+│   │   │   │   │   ├── header.component.ts
+│   │   │   │   │   ├── header.component.html
+│   │   │   │   │   └── header.component.css
+│   │   │   │   └── chat/                # AI assistant panel
+│   │   │   │       ├── chat.component.ts
+│   │   │   │       ├── chat.component.html
+│   │   │   │       └── chat.component.css
+│   │   │   └── features/                # Public features (shell-level, eager loaded)
+│   │   │       ├── landing/
+│   │   │       ├── login/
+│   │   │       ├── profile/
+│   │   │       └── portfolio/
+│   │   │
+│   │   ├── protected-features/          # Protected features (lazy loaded on /app route)
+│   │   │   ├── dashboard/
+│   │   │   ├── projects/
+│   │   │   ├── finances/
+│   │   │   ├── customers/
+│   │   │   └── reports/
+│   │   │
+│   │   ├── shared/                      # Shared components & utilities
+│   │   │   ├── sidebar/                 # Reusable feature navigation
+│   │   │   │   ├── sidebar.component.ts
+│   │   │   │   ├── sidebar.component.html
+│   │   │   │   └── sidebar.component.css
+│   │   │   ├── pipes/
+│   │   │   │   └── translate.pipe.ts
+│   │   │   └── directives/
+│   │   │       └── has-access.directive.ts
+│   │   │
 │   │   ├── core/                        # Core services, guards, interceptors
 │   │   │   ├── services/
-│   │   │   │   ├── translation.service.ts
 │   │   │   │   ├── auth.service.ts
-│   │   │   │   └── ...
+│   │   │   │   ├── translation.service.ts
+│   │   │   │   ├── chat.service.ts
+│   │   │   │   └── notification.service.ts
 │   │   │   ├── guards/
 │   │   │   │   └── auth.guard.ts
 │   │   │   ├── interceptors/
 │   │   │   ├── directives/
+│   │   │   │   └── has-access.directive.ts
 │   │   │   ├── pipes/
+│   │   │   │   └── translate.pipe.ts
 │   │   │   └── index.ts
-│   │   ├── shared/                      # Shared components, pipes, utilities
-│   │   │   ├── components/
-│   │   │   │   ├── header/
-│   │   │   │   ├── sidebar/
-│   │   │   │   └── chat/
-│   │   │   ├── pipes/
-│   │   │   └── index.ts
+│   │   │
 │   │   ├── app.routes.ts                # Main routing with lazy loading
 │   │   ├── app.ts                       # Root component
 │   │   └── app.config.ts                # Provider configuration
+│   │
 │   ├── assets/                          # Static assets (images, fonts, etc)
 │   ├── styles.css                       # Global styles
 │   └── index.html
+│
 ├── public/                              # Public static files served at root
 │   ├── favicon.ico
-│   └── i18n/                            # Translation files
+│   └── i18n/                            # Translation files (single source)
 │       ├── en.json
 │       ├── es.json
 │       └── fr.json
+│
 ├── angular.json                         # Angular build configuration
 ├── package.json
 └── tsconfig.json
 ```
+
+## Key Architectural Decisions
+
+### Phase 1: Shell + Protected Features Separation
+- **shell/**: Contains layout components (header, chat) + public features (landing, login, profile, portfolio)
+- **protected-features/**: Contains all authenticated/restricted features (dashboard, projects, finances, customers, reports)
+- **shared/**: Reusable components used across the app (sidebar, pipes, directives)
+- **core/**: Application-wide services, guards, and utilities
+
+This structure is **MFE-ready** and prepares the project for Phase 2 polyrepo migration.
+
 
 ## Routing Architecture
 
@@ -88,28 +120,59 @@ The main routing is defined in `src/app/app.routes.ts`:
 
 ```typescript
 export const routes: Routes = [
-  // Public routes (eager loaded)
+  // Public routes (eager loaded from shell/features)
   {
     path: '',
     children: [
       {
         path: '',
-        loadComponent: () => import('./features/public/landing/...')
+        loadComponent: () => import('./shell/features/landing/landing.component').then(m => m.LandingComponent)
       },
-      // ... other public routes
+      {
+        path: 'login',
+        loadComponent: () => import('./shell/features/login/login.component').then(m => m.LoginComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./shell/features/profile/profile.component').then(m => m.ProfileComponent)
+      },
+      {
+        path: 'portfolio',
+        loadComponent: () => import('./shell/features/portfolio/portfolio.component').then(m => m.PortfolioComponent)
+      }
     ]
   },
   
-  // Protected routes (lazy loaded)
+  // Protected routes (lazy loaded from protected-features)
   {
     path: 'app',
     canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
-        loadComponent: () => import('./features/protected/dashboard/...')
+        loadComponent: () => import('./protected-features/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        data: { permission: 'dashboard' }
       },
-      // ... other protected routes
+      {
+        path: 'projects',
+        loadComponent: () => import('./protected-features/projects/projects.component').then(m => m.ProjectsComponent),
+        data: { permission: 'projects' }
+      },
+      {
+        path: 'finances',
+        loadComponent: () => import('./protected-features/finances/finances.component').then(m => m.FinancesComponent),
+        data: { permission: 'finances' }
+      },
+      {
+        path: 'customers',
+        loadComponent: () => import('./protected-features/customers/customers.component').then(m => m.CustomersComponent),
+        data: { permission: 'customers' }
+      },
+      {
+        path: 'reports',
+        loadComponent: () => import('./protected-features/reports/reports.component').then(m => m.ReportsComponent),
+        data: { permission: 'reports' }
+      }
     ]
   }
 ];

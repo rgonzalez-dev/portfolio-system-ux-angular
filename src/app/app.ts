@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
-import { ChatComponent } from './shared/components/chat/chat.component';
+import { HeaderComponent } from './shell/layouts/header/header.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { ChatComponent } from './shell/layouts/chat/chat.component';
 import { AuthService } from './core/services/auth.service';
 
 @Component({

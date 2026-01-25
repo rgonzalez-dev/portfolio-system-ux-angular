@@ -2,13 +2,44 @@
 
 ## Project Overview
 
-A fully responsive, feature-rich Angular 21.0.5 application with Bootstrap styling, designed with a modern layout system featuring header navigation, collapsible sidebar, and an AI chat panel.
+A fully responsive, feature-rich Angular 21.0.5 application with Bootstrap styling, designed with a modern layout system featuring header navigation, collapsible sidebar, and an AI chat panel. Built with **Phase 1 MFE-ready architecture** separating shell layout, public features, and protected features.
+
+---
+
+## Project Structure (Phase 1)
+
+```
+src/app/
+├── shell/                      # Shell application (layouts + public features)
+│   ├── layouts/                # Shell layout components
+│   │   ├── header/             # Main header with navigation
+│   │   └── chat/               # AI assistant panel
+│   └── features/               # Public features (eager loaded)
+│       ├── landing/
+│       ├── login/
+│       ├── profile/
+│       └── portfolio/
+├── protected-features/         # Protected features (lazy loaded)
+│   ├── dashboard/
+│   ├── projects/
+│   ├── finances/
+│   ├── customers/
+│   └── reports/
+├── shared/                     # Reusable components
+│   ├── sidebar/                # Feature navigation
+│   ├── pipes/
+│   └── directives/
+└── core/                       # Services, guards, utilities
+    ├── services/
+    ├── guards/
+    └── directives/
+```
 
 ---
 
 ## Architecture & Features
 
-### 1. **Header Component** (Top Navigation Bar)
+### 1. **Header Component** (Top Navigation Bar - `shell/layouts/header/`)
 - **Left Side:**
   - Logo badge ("P") with gradient styling
   - Primary branding element
@@ -18,7 +49,7 @@ A fully responsive, feature-rich Angular 21.0.5 application with Bootstrap styli
   - 🔔 **Notifications Icon** - Shows notification count badge and expandable notification list
   - 👤 **User Icon** - User menu dropdown with Profile, Settings, Help, and Logout options
 
-### 2. **Sidebar Navigation**
+### 2. **Sidebar Navigation** (Reusable - `shared/sidebar/`)
 - **Features:**
   - 5 main navigation items: Dashboard, Projects, Finances, Customers, Reports
   - Icon representation for each menu item (emojis as defaults)
@@ -40,7 +71,7 @@ A fully responsive, feature-rich Angular 21.0.5 application with Bootstrap styli
   - **Left/Center:** Main content area (flexible width) with router outlet
   - **Right Panel:** Collapsible AI chat interface (0 → 350px width)
 
-### 4. **Right Panel - AI Chat Component**
+### 4. **Right Panel - AI Chat Component** (`shell/layouts/chat/`)
 - Modal-style component that slides in from the right
 - Features:
   - Message history display with user/bot distinction

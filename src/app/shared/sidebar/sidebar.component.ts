@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-import { HasAccessDirective } from '../../../core/directives/has-access.directive';
+import { AuthService } from '../../core/services/auth.service';
+import { HasAccessDirective } from '../../core/directives/has-access.directive';
 import { filter } from 'rxjs';
 
 export interface NavSubItem {

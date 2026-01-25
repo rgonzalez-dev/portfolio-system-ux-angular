@@ -33,51 +33,52 @@
 ### App Root
 ```
 src/app/
-├── core/                          # Application core
+├── shell/                         # Shell application (layout + public features)
+│   ├── layouts/                    # Shell layout components
+│   │   ├── header/                 # Main app header with navigation
+│   │   │   ├── header.component.ts (100+ lines, 8 methods)
+│   │   │   ├── header.component.html (120+ lines)
+│   │   │   └── header.component.css (300+ lines)
+│   │   └── chat/                   # AI assistant panel
+│   │       ├── chat.component.ts
+│   │       ├── chat.component.html
+│   │       └── chat.component.css
+│   └── features/                   # Public features (shell-level)
+│       ├── landing/                # ✨ Public landing page
+│       ├── login/                  # 🔐 Public login page
+│       ├── profile/                # 👤 Public profile
+│       └── portfolio/              # 📸 Public portfolio
+│
+├── protected-features/             # Protected features (lazy-loaded)
+│   ├── dashboard/                  # 📊 Protected dashboard
+│   ├── projects/                   # 📁 Protected projects
+│   ├── finances/                   # 💰 Protected finances
+│   ├── customers/                  # 👥 Protected customers
+│   └── reports/                    # 📑 Protected reports
+│
+├── shared/                         # Reusable components & utilities
+│   ├── sidebar/                    # Feature sub-navigation
+│   │   ├── sidebar.component.ts (100+ lines)
+│   │   ├── sidebar.component.html
+│   │   └── sidebar.component.css
+│   ├── pipes/                      # Custom pipes
+│   │   └── translate.pipe.ts       # i18n translation pipe
+│   └── directives/
+│       └── has-access.directive.ts # Permission checking
+│
+├── core/                           # Application core
 │   ├── services/
-│   │   ├── auth.service.ts       # User auth & state (8 users pre-defined)
-│   │   ├── chat.service.ts       # AI chat with context awareness
-│   │   └── notification.service.ts# System notifications
+│   │   ├── auth.service.ts         # User auth & state (8 users pre-defined)
+│   │   ├── chat.service.ts         # AI chat with context awareness
+│   │   ├── translation.service.ts  # i18n translation service
+│   │   └── notification.service.ts # System notifications
 │   ├── guards/
-│   │   └── auth.guard.ts         # Route protection (AuthGuard)
+│   │   └── auth.guard.ts           # Route protection (AuthGuard)
 │   ├── directives/
-│   │   └── has-access.directive.ts# *appHasAccess for templates
+│   │   └── has-access.directive.ts # *appHasAccess for templates
+│   ├── pipes/
+│   │   └── translate.pipe.ts       # i18n translation pipe
 │   └── index.ts
-│
-├── features/                       # Feature modules (pages)
-│   ├── landing/                   # ✨ Public landing page
-│   │   ├── landing.component.ts
-│   │   ├── landing.component.html
-│   │   └── landing.component.css
-│   ├── login/                     # 🔐 Public login page
-│   │   ├── login.component.ts
-│   │   ├── login.component.html
-│   │   └── login.component.css
-│   ├── profile/                   # 👤 Public profile
-│   │   ├── profile.component.ts
-│   │   ├── profile.component.html
-│   │   └── profile.component.css
-│   ├── portfolio/                 # 📸 Public portfolio
-│   │   ├── portfolio.component.ts
-│   │   ├── portfolio.component.html
-│   │   └── portfolio.component.css
-│   ├── dashboard/                 # 📊 Protected dashboard
-│   ├── projects/                  # 📁 Protected projects
-│   ├── finances/                  # 💰 Protected finances
-│   ├── customers/                 # 👥 Protected customers
-│   └── reports/                   # 📑 Protected reports
-│
-├── shared/                         # Shared across components
-│   └── components/
-│       ├── header/                # Main header
-│       │   ├── header.component.ts  (100+ lines, 8 methods)
-│       │   ├── header.component.html (120+ lines)
-│       │   └── header.component.css  (300+ lines)
-│       ├── sidebar/               # Feature sub-navigation
-│       │   ├── sidebar.component.ts  (100+ lines)
-│       │   ├── sidebar.component.html
-│       │   └── sidebar.component.css
-│       └── chat/                  # AI assistant
 │           ├── chat.component.ts
 │           ├── chat.component.html
 │           └── chat.component.css
