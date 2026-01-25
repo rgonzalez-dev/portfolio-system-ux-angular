@@ -1,0 +1,113 @@
+{
+  "shared": {
+    "header": {
+      "portfolio": "Portefeuille",
+      "profile": "Profil",
+      "dashboard": "Tableau de Bord",
+      "projects": "Projets",
+      "finances": "Finances",
+      "customers": "Clients",
+      "reports": "Rapports"
+    },
+    "sidebar": {
+      "activeProjects": "Projets Actifs",
+      "completed": "Complétés",
+      "reports": "Rapports",
+      "budgets": "Budgets",
+      "active": "Actifs",
+      "inactive": "Inactifs",
+      "sales": "Ventes",
+      "analytics": "Analyse"
+    },
+    "userMenu": {
+      "profile": "Profil",
+      "settings": "Paramètres",
+      "help": "Aide",
+      "logout": "Déconnexion",
+      "login": "Connexion"
+    },
+    "language": "Langue"
+  },
+  "landing": {
+    "title": "Bienvenue dans le Système de Portefeuille",
+    "subtitle": "Explorez mon portefeuille professionnel et mon expérience",
+    "portfolio": "Portefeuille",
+    "profile": "Profil",
+    "portfolioDesc": "Voir mes derniers projets et expertise technique",
+    "profileDesc": "En savoir plus sur mon parcours et mes compétences"
+  },
+  "login": {
+    "title": "Connexion",
+    "email": "Email",
+    "password": "Mot de Passe",
+    "login": "Connexion",
+    "demoCredentials": "Identifiants de Démonstration",
+    "demoEmail": "Email : demo@example.com",
+    "demoPassword": "Mot de passe : password",
+    "forgotPassword": "Mot de passe oublié?"
+  },
+  "profile": {
+    "title": "Profil Professionnel",
+    "about": "À propos de Moi",
+    "skills": "Compétences",
+    "experience": "Expérience",
+    "contact": "Informations de Contact",
+    "email": "Email",
+    "phone": "Téléphone",
+    "location": "Localisation"
+  },
+  "portfolio": {
+    "title": "Mon Portefeuille",
+    "projects": "Projets",
+    "viewProject": "Voir le Projet",
+    "technologies": "Technologies"
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "welcome": "Bienvenue!",
+    "overview": "Aperçu",
+    "statistics": "Statistiques",
+    "recentActivity": "Activité Récente"
+  },
+  "projects": {
+    "title": "Projets",
+    "addProject": "Ajouter un Projet",
+    "editProject": "Modifier le Projet",
+    "deleteProject": "Supprimer le Projet",
+    "projectName": "Nom du Projet",
+    "description": "Description",
+    "status": "Statut",
+    "startDate": "Date de Début",
+    "endDate": "Date de Fin",
+    "team": "Équipe"
+  },
+  "finances": {
+    "title": "Finances",
+    "revenue": "Revenus",
+    "expenses": "Dépenses",
+    "profit": "Bénéfice",
+    "budget": "Budget",
+    "budgetReports": "Rapports Budgétaires",
+    "financialOverview": "Aperçu Financier"
+  },
+  "customers": {
+    "title": "Clients",
+    "addCustomer": "Ajouter un Client",
+    "editCustomer": "Modifier le Client",
+    "deleteCustomer": "Supprimer le Client",
+    "customerName": "Nom du Client",
+    "email": "Email",
+    "phone": "Téléphone",
+    "company": "Entreprise",
+    "activeCustomers": "Clients Actifs",
+    "inactiveCustomers": "Clients Inactifs"
+  },
+  "reports": {
+    "title": "Rapports",
+    "generateReport": "Générer un Rapport",
+    "salesReport": "Rapport de Ventes",
+    "analyticsReport": "Rapport d'Analyse",
+    "period": "Période",
+    "export": "Exporter"
+  }
+}

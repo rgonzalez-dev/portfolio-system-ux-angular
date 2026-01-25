@@ -1,0 +1,29 @@
+{
+  "header": {
+    "portfolio": "Portefeuille",
+    "profile": "Profil",
+    "dashboard": "Tableau de Bord",
+    "projects": "Projets",
+    "finances": "Finances",
+    "customers": "Clients",
+    "reports": "Rapports"
+  },
+  "sidebar": {
+    "activeProjects": "Projets Actifs",
+    "completed": "Complétés",
+    "reports": "Rapports",
+    "budgets": "Budgets",
+    "active": "Actifs",
+    "inactive": "Inactifs",
+    "sales": "Ventes",
+    "analytics": "Analyse"
+  },
+  "userMenu": {
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "help": "Aide",
+    "logout": "Déconnexion",
+    "login": "Connexion"
+  },
+  "language": "Langue"
+}

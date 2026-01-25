@@ -1,0 +1,12 @@
+{
+  "title": "Projects",
+  "addProject": "Add Project",
+  "editProject": "Edit Project",
+  "deleteProject": "Delete Project",
+  "projectName": "Project Name",
+  "description": "Description",
+  "status": "Status",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "team": "Team"
+}

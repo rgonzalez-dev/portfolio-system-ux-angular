@@ -97,16 +97,34 @@
       <div class="user-menu" *ngIf="showUserMenu" #userMenu>
         <!-- Authenticated Menu -->
         <ng-container *ngIf="isAuthenticated">
-          <a href="#profile">👤 Profile</a>
-          <a href="#settings">⚙️ Settings</a>
-          <a href="#help">❓ Help</a>
+          <a href="#profile">👤 {{ 'shared.userMenu.profile' | translate }}</a>
+          <a href="#settings">⚙️ {{ 'shared.userMenu.settings' | translate }}</a>
+          <a href="#help">❓ {{ 'shared.userMenu.help' | translate }}</a>
           <div class="divider"></div>
-          <button (click)="logout()" style="cursor: pointer;">🚪 Logout</button>
+          <button (click)="logout()" style="cursor: pointer;">🚪 {{ 'shared.userMenu.logout' | translate }}</button>
         </ng-container>
         
         <!-- Public Menu -->
         <ng-container *ngIf="!isAuthenticated">
-          <a [routerLink]="'/login'" (click)="showUserMenu = false">🔐 Login</a>
+          <a [routerLink]="'/login'" (click)="showUserMenu = false">🔐 {{ 'shared.userMenu.login' | translate }}</a>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Language Switcher -->
+    <div style="position: relative;">
+      <button class="icon-btn" (click)="toggleLanguageMenu($event)" title="Language">
+        🌐 {{ currentLanguage.toUpperCase() }}
+      </button>
+      
+      <div class="language-menu" *ngIf="showLanguageMenu">
+        <ng-container *ngFor="let lang of supportedLanguages">
+          <button 
+            (click)="changeLanguage(lang); $event.stopPropagation()"
+            [class.active]="currentLanguage === lang"
+            class="language-option">
+            {{ lang.toUpperCase() }}
+          </button>
         </ng-container>
       </div>
     </div>

@@ -1,0 +1,12 @@
+{
+  "title": "Customers",
+  "addCustomer": "Add Customer",
+  "editCustomer": "Edit Customer",
+  "deleteCustomer": "Delete Customer",
+  "customerName": "Customer Name",
+  "email": "Email",
+  "phone": "Phone",
+  "company": "Company",
+  "activeCustomers": "Active Customers",
+  "inactiveCustomers": "Inactive Customers"
+}

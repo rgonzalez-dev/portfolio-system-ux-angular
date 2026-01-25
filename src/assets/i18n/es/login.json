@@ -1,0 +1,10 @@
+{
+  "title": "Iniciar Sesión",
+  "email": "Correo Electrónico",
+  "password": "Contraseña",
+  "login": "Iniciar Sesión",
+  "demoCredentials": "Credenciales de Demostración",
+  "demoEmail": "Correo: demo@example.com",
+  "demoPassword": "Contraseña: password",
+  "forgotPassword": "¿Olvidó su contraseña?"
+}
